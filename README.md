@@ -10,7 +10,7 @@
 
 ### 3rd party resources used in this project:
 
- - <a href="https://codecanyon.net/item/elektrokit-class-library-for-net/19260282" target="_blank">DevCase for .NET Framework</a> (some source-code samples provided for free, only for **Easy Link File Viewer** project)
+ - <a href="https://codecanyon.net/item/elektrokit-class-library-for-net/19260282" target="_blank">DevCase for .NET Framework</a> (some source-code samples provided for free, only for **Bulk Domain Search** project)
  
 # **Donations**
 

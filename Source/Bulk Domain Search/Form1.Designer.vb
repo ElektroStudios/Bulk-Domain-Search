@@ -23,9 +23,9 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.WebBrowserDomainSearch = New System.Windows.Forms.WebBrowser()
         Me.TabControlMain = New System.Windows.Forms.TabControl()
         Me.TabPageDomainSearch = New System.Windows.Forms.TabPage()
+        Me.ChromiumWebBrowserDomainSearch = New CefSharp.WinForms.ChromiumWebBrowser()
         Me.Panel1SeparatorDomainSearch = New System.Windows.Forms.Panel()
         Me.PanelDomainSearch = New System.Windows.Forms.Panel()
         Me.ButtonDomainSearchReload = New System.Windows.Forms.Button()
@@ -34,7 +34,6 @@ Partial Class Form1
         Me.ButtonDomainSearchHome = New System.Windows.Forms.Button()
         Me.TextBoxDomainSearchUrl = New System.Windows.Forms.TextBox()
         Me.TabPageFreeBrowsing = New System.Windows.Forms.TabPage()
-        Me.WebBrowserFreeBrowsing = New System.Windows.Forms.WebBrowser()
         Me.PanelSeparatorFreeBrowsing = New System.Windows.Forms.Panel()
         Me.PanelFreeBrowsing = New System.Windows.Forms.Panel()
         Me.ButtonFreeBrowsingHome = New System.Windows.Forms.Button()
@@ -43,22 +42,13 @@ Partial Class Form1
         Me.ButtonFreeBrowsingPrevious = New System.Windows.Forms.Button()
         Me.ButtonFreeBrowsingNavigate = New System.Windows.Forms.Button()
         Me.TextBoxFreeBrowsingUrl = New System.Windows.Forms.TextBox()
+        Me.ChromiumWebBrowserFreeBrowsing = New CefSharp.WinForms.ChromiumWebBrowser()
         Me.TabControlMain.SuspendLayout()
         Me.TabPageDomainSearch.SuspendLayout()
         Me.PanelDomainSearch.SuspendLayout()
         Me.TabPageFreeBrowsing.SuspendLayout()
         Me.PanelFreeBrowsing.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'WebBrowserDomainSearch
-        '
-        Me.WebBrowserDomainSearch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebBrowserDomainSearch.Location = New System.Drawing.Point(3, 42)
-        Me.WebBrowserDomainSearch.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowserDomainSearch.Name = "WebBrowserDomainSearch"
-        Me.WebBrowserDomainSearch.ScriptErrorsSuppressed = True
-        Me.WebBrowserDomainSearch.Size = New System.Drawing.Size(1250, 610)
-        Me.WebBrowserDomainSearch.TabIndex = 1
         '
         'TabControlMain
         '
@@ -73,7 +63,7 @@ Partial Class Form1
         '
         'TabPageDomainSearch
         '
-        Me.TabPageDomainSearch.Controls.Add(Me.WebBrowserDomainSearch)
+        Me.TabPageDomainSearch.Controls.Add(Me.ChromiumWebBrowserDomainSearch)
         Me.TabPageDomainSearch.Controls.Add(Me.Panel1SeparatorDomainSearch)
         Me.TabPageDomainSearch.Controls.Add(Me.PanelDomainSearch)
         Me.TabPageDomainSearch.Location = New System.Drawing.Point(4, 22)
@@ -83,6 +73,15 @@ Partial Class Form1
         Me.TabPageDomainSearch.TabIndex = 0
         Me.TabPageDomainSearch.Text = "Domain Search"
         Me.TabPageDomainSearch.UseVisualStyleBackColor = True
+        '
+        'ChromiumWebBrowserDomainSearch
+        '
+        Me.ChromiumWebBrowserDomainSearch.ActivateBrowserOnCreation = False
+        Me.ChromiumWebBrowserDomainSearch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChromiumWebBrowserDomainSearch.Location = New System.Drawing.Point(3, 42)
+        Me.ChromiumWebBrowserDomainSearch.Name = "ChromiumWebBrowserDomainSearch"
+        Me.ChromiumWebBrowserDomainSearch.Size = New System.Drawing.Size(1250, 610)
+        Me.ChromiumWebBrowserDomainSearch.TabIndex = 3
         '
         'Panel1SeparatorDomainSearch
         '
@@ -172,7 +171,7 @@ Partial Class Form1
         '
         'TabPageFreeBrowsing
         '
-        Me.TabPageFreeBrowsing.Controls.Add(Me.WebBrowserFreeBrowsing)
+        Me.TabPageFreeBrowsing.Controls.Add(Me.ChromiumWebBrowserFreeBrowsing)
         Me.TabPageFreeBrowsing.Controls.Add(Me.PanelSeparatorFreeBrowsing)
         Me.TabPageFreeBrowsing.Controls.Add(Me.PanelFreeBrowsing)
         Me.TabPageFreeBrowsing.Location = New System.Drawing.Point(4, 22)
@@ -182,16 +181,6 @@ Partial Class Form1
         Me.TabPageFreeBrowsing.TabIndex = 2
         Me.TabPageFreeBrowsing.Text = "Free Browsing"
         Me.TabPageFreeBrowsing.UseVisualStyleBackColor = True
-        '
-        'WebBrowserFreeBrowsing
-        '
-        Me.WebBrowserFreeBrowsing.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebBrowserFreeBrowsing.Location = New System.Drawing.Point(3, 42)
-        Me.WebBrowserFreeBrowsing.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowserFreeBrowsing.Name = "WebBrowserFreeBrowsing"
-        Me.WebBrowserFreeBrowsing.ScriptErrorsSuppressed = True
-        Me.WebBrowserFreeBrowsing.Size = New System.Drawing.Size(1250, 610)
-        Me.WebBrowserFreeBrowsing.TabIndex = 1
         '
         'PanelSeparatorFreeBrowsing
         '
@@ -293,6 +282,15 @@ Partial Class Form1
         Me.TextBoxFreeBrowsingUrl.Size = New System.Drawing.Size(1090, 20)
         Me.TextBoxFreeBrowsingUrl.TabIndex = 2
         '
+        'ChromiumWebBrowserFreeBrowsing
+        '
+        Me.ChromiumWebBrowserFreeBrowsing.ActivateBrowserOnCreation = False
+        Me.ChromiumWebBrowserFreeBrowsing.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChromiumWebBrowserFreeBrowsing.Location = New System.Drawing.Point(3, 42)
+        Me.ChromiumWebBrowserFreeBrowsing.Name = "ChromiumWebBrowserFreeBrowsing"
+        Me.ChromiumWebBrowserFreeBrowsing.Size = New System.Drawing.Size(1250, 610)
+        Me.ChromiumWebBrowserFreeBrowsing.TabIndex = 3
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -313,12 +311,9 @@ Partial Class Form1
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents WebBrowserDomainSearch As WebBrowser
     Friend WithEvents TabControlMain As TabControl
     Friend WithEvents TabPageDomainSearch As TabPage
     Friend WithEvents TabPageFreeBrowsing As TabPage
-    Friend WithEvents WebBrowserFreeBrowsing As WebBrowser
     Friend WithEvents PanelFreeBrowsing As Panel
     Friend WithEvents ButtonFreeBrowsingNavigate As Button
     Friend WithEvents TextBoxFreeBrowsingUrl As TextBox
@@ -334,4 +329,6 @@ Partial Class Form1
     Friend WithEvents ButtonFreeBrowsingNext As Button
     Friend WithEvents ButtonFreeBrowsingPrevious As Button
     Friend WithEvents ButtonFreeBrowsingHome As Button
+    Friend WithEvents ChromiumWebBrowserDomainSearch As CefSharp.WinForms.ChromiumWebBrowser
+    Friend WithEvents ChromiumWebBrowserFreeBrowsing As CefSharp.WinForms.ChromiumWebBrowser
 End Class

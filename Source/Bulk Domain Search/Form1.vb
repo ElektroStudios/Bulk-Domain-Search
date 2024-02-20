@@ -2,10 +2,15 @@
 
 Imports System.Diagnostics
 
-Imports DevCase.Core.Application.Tools
+Imports CefSharp
+Imports CefSharp.WinForms
+
+
+
+'Imports DevCase.Core.Application.Tools
 Imports DevCase.Core.Application.UserInterface
-Imports DevCase.Core.NET
-Imports DevCase.Core.Shell
+'Imports DevCase.Core.NET
+'Imports DevCase.Core.Shell
 
 #End Region
 
@@ -47,10 +52,11 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' ----------------------------------------------------------------------------------------------------
     Public Sub New()
         MyClass.InitializeComponent()
-        Try
-            AppUtil.SetIEBrowserEmulationMode(Process.GetCurrentProcess().ProcessName, RegistryScope.CurrentUser, IEBrowserEmulationMode.IE11Edge)
-        Catch ' Do Nothing
-        End Try
+        'Try
+        '    AppUtil.SetIEBrowserEmulationMode(Process.GetCurrentProcess().ProcessName, RegistryScope.CurrentUser, IEBrowserEmulationMode.IE11Edge)
+        'Catch 
+        ' ' Do Nothing
+        'End Try
     End Sub
 
 #End Region
@@ -78,35 +84,38 @@ Friend NotInheritable Class Form1 : Inherits Form
         Me.ClickNotifierTextBoxDomainSearch = New ControlClickNotifier(Me.TextBoxDomainSearchUrl)
         Me.ClickNotifierTextBoxFreeBrowsing = New ControlClickNotifier(Me.TextBoxFreeBrowsingUrl)
 
-        Me.WebBrowserDomainSearch.Navigate(Homepages.DomainSearch)
-        Me.WebBrowserFreeBrowsing.Navigate(Homepages.FreeBrowsing)
+        ' Me.WebBrowserDomainSearch.Navigate(Homepages.DomainSearch)
+        ' Me.WebBrowserFreeBrowsing.Navigate(Homepages.FreeBrowsing)
+        Me.ChromiumWebBrowserDomainSearch.LoadUrl(Homepages.DomainSearch.ToString())
+        Me.ChromiumWebBrowserFreeBrowsing.LoadUrl(Homepages.FreeBrowsing.ToString())
     End Sub
 
 #End Region
 
 #Region " Domain Search "
 
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <summary>
-    ''' Handles the <see cref="WebBrowser.Navigated"/> event of the <see cref="Form1.WebBrowserDomainSearch"/> control.
-    ''' </summary>
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <param name="sender">
-    ''' The source of the event.
-    ''' </param>
-    ''' 
-    ''' <param name="e">
-    ''' The <see cref="WebBrowserNavigatedEventArgs"/> instance containing the event data.
-    ''' </param>
-    ''' ----------------------------------------------------------------------------------------------------
-    Private Sub WebBrowserDomainSearch_Navigated(sender As Object, e As WebBrowserNavigatedEventArgs) Handles WebBrowserDomainSearch.Navigated
-        Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
-        Me.SetNavigationButtonStates()
-    End Sub
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <summary>
+    '''' Handles the <see cref="WebBrowser.Navigated"/> event of the <see cref="Form1.WebBrowserDomainSearch"/> control.
+    '''' </summary>
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <param name="sender">
+    '''' The source of the event.
+    '''' </param>
+    '''' 
+    '''' <param name="e">
+    '''' The <see cref="WebBrowserNavigatedEventArgs"/> instance containing the event data.
+    '''' </param>
+    '''' ----------------------------------------------------------------------------------------------------
+    'Private Sub WebBrowserDomainSearch_Navigated(sender As Object, e As WebBrowserNavigatedEventArgs) Handles WebBrowserDomainSearch.Navigated
+    '    Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
+    '    Me.SetNavigationButtonStates()
+    'End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
     ''' <summary>
-    ''' Handles the <see cref="WebBrowser.DocumentCompleted"/> event of the <see cref="Form1.WebBrowserDomainSearch"/> control.
+    ''' Handles the <see cref="ChromiumWebBrowser.LoadingStateChangedEventArgs"/> event 
+    ''' of the <see cref="Form1.ChromiumWebBrowserDomainSearch"/> control.
     ''' </summary>
     ''' ----------------------------------------------------------------------------------------------------
     ''' <param name="sender">
@@ -114,12 +123,33 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' 
     ''' <param name="e">
-    ''' The <see cref="WebBrowserDocumentCompletedEventArgs"/> instance containing the event data.
+    ''' The <see cref="LoadingStateChangedEventArgs"/> instance containing the event data.
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
-    Private Sub WebBrowserDomainSearch_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowserDomainSearch.DocumentCompleted
-        Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
+    Private Sub ChromiumWebBrowserDomainSearch_LoadingStateChanged(sender As Object, e As LoadingStateChangedEventArgs) Handles ChromiumWebBrowserDomainSearch.LoadingStateChanged
+        Me.Invoke(
+            Sub()
+                Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, ChromiumWebBrowser).Address
+                Me.SetNavigationButtonStates()
+            End Sub)
     End Sub
+
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <summary>
+    '''' Handles the <see cref="WebBrowser.DocumentCompleted"/> event of the <see cref="Form1.WebBrowserDomainSearch"/> control.
+    '''' </summary>
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <param name="sender">
+    '''' The source of the event.
+    '''' </param>
+    '''' 
+    '''' <param name="e">
+    '''' The <see cref="WebBrowserDocumentCompletedEventArgs"/> instance containing the event data.
+    '''' </param>
+    '''' ----------------------------------------------------------------------------------------------------
+    'Private Sub WebBrowserDomainSearch_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowserDomainSearch.DocumentCompleted
+    '    Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
+    'End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
     ''' <summary>
@@ -135,7 +165,8 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonDomainSearchHome_Click(sender As Object, e As EventArgs) Handles ButtonDomainSearchHome.Click
-        Me.WebBrowserDomainSearch.Navigate(Homepages.DomainSearch)
+        ' Me.WebBrowserDomainSearch.Navigate(Homepages.DomainSearch)
+        Me.ChromiumWebBrowserDomainSearch.LoadUrl(Homepages.DomainSearch.ToString())
     End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
@@ -152,7 +183,8 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonDomainSearchReload_Click(sender As Object, e As EventArgs) Handles ButtonDomainSearchReload.Click
-        Me.WebBrowserDomainSearch.Refresh(WebBrowserRefreshOption.Completely)
+        ' Me.WebBrowserDomainSearch.Refresh(WebBrowserRefreshOption.Completely)
+        Me.ChromiumWebBrowserDomainSearch.Reload(ignoreCache:=True)
     End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
@@ -169,7 +201,10 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonDomainSearchPrevious_Click(sender As Object, e As EventArgs) Handles ButtonDomainSearchPrevious.Click
-        Me.WebBrowserDomainSearch.GoBack()
+        ' Me.WebBrowserDomainSearch.GoBack()
+        If Me.ChromiumWebBrowserDomainSearch.CanGoBack Then
+            Me.ChromiumWebBrowserDomainSearch.Back()
+        End If
         Me.SetNavigationButtonStates()
     End Sub
 
@@ -187,7 +222,10 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonDomainSearchNext_Click(sender As Object, e As EventArgs) Handles ButtonDomainSearchNext.Click
-        Me.WebBrowserDomainSearch.GoForward()
+        'Me.WebBrowserDomainSearch.GoForward()
+        If Me.ChromiumWebBrowserDomainSearch.CanGoForward Then
+            Me.ChromiumWebBrowserDomainSearch.Forward()
+        End If
         Me.SetNavigationButtonStates()
     End Sub
 
@@ -216,6 +254,63 @@ Friend NotInheritable Class Form1 : Inherits Form
 #End Region
 
 #Region " Free Browsing "
+
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <summary>
+    '''' Handles the <see cref="WebBrowser.Navigated"/> event of the <see cref="Form1.WebBrowserFreeBrowsing"/> control.
+    '''' </summary>
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <param name="sender">
+    '''' The source of the event.
+    '''' </param>
+    '''' 
+    '''' <param name="e">
+    '''' The <see cref="WebBrowserNavigatedEventArgs"/> instance containing the event data.
+    '''' </param>
+    '''' ----------------------------------------------------------------------------------------------------
+    'Private Sub WebBrowserFreeBrowsing_Navigated(sender As Object, e As WebBrowserNavigatedEventArgs) Handles WebBrowserFreeBrowsing.Navigated
+    '    Me.TextBoxFreeBrowsingUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
+    '    Me.SetNavigationButtonStates()
+    'End Sub
+
+    ''' ----------------------------------------------------------------------------------------------------
+    ''' <summary>
+    ''' Handles the <see cref="ChromiumWebBrowser.LoadingStateChangedEventArgs"/> event 
+    ''' of the <see cref="Form1.ChromiumWebBrowserFreeBrowsing"/> control.
+    ''' </summary>
+    ''' ----------------------------------------------------------------------------------------------------
+    ''' <param name="sender">
+    ''' The source of the event.
+    ''' </param>
+    ''' 
+    ''' <param name="e">
+    ''' The <see cref="LoadingStateChangedEventArgs"/> instance containing the event data.
+    ''' </param>
+    ''' ----------------------------------------------------------------------------------------------------
+    Private Sub ChromiumWebBrowserFreeBrowsing_LoadingStateChanged(sender As Object, e As LoadingStateChangedEventArgs) Handles ChromiumWebBrowserFreeBrowsing.LoadingStateChanged
+        Me.Invoke(
+            Sub()
+                Me.TextBoxFreeBrowsingUrl.Text = DirectCast(sender, ChromiumWebBrowser).Address
+                Me.SetNavigationButtonStates()
+            End Sub)
+    End Sub
+
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <summary>
+    '''' Handles the <see cref="WebBrowser.DocumentCompleted"/> event of the <see cref="Form1.WebBrowserFreeBrowsing"/> control.
+    '''' </summary>
+    '''' ----------------------------------------------------------------------------------------------------
+    '''' <param name="sender">
+    '''' The source of the event.
+    '''' </param>
+    '''' 
+    '''' <param name="e">
+    '''' The <see cref="WebBrowserDocumentCompletedEventArgs"/> instance containing the event data.
+    '''' </param>
+    '''' ----------------------------------------------------------------------------------------------------
+    'Private Sub WebBrowserFreeBrowsing_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowserFreeBrowsing.DocumentCompleted
+    '    Me.TextBoxFreeBrowsingUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
+    'End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
     ''' <summary>
@@ -261,44 +356,10 @@ Friend NotInheritable Class Form1 : Inherits Form
 
         Dim url As String = Me.TextBoxFreeBrowsingUrl.Text
         If Not String.IsNullOrEmpty(url) Then
-            Me.WebBrowserFreeBrowsing.Navigate(url)
+            ' Me.WebBrowserFreeBrowsing.Navigate(url)
+            Me.ChromiumWebBrowserFreeBrowsing.LoadUrl(url)
         End If
 
-    End Sub
-
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <summary>
-    ''' Handles the <see cref="WebBrowser.Navigated"/> event of the <see cref="Form1.WebBrowserFreeBrowsing"/> control.
-    ''' </summary>
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <param name="sender">
-    ''' The source of the event.
-    ''' </param>
-    ''' 
-    ''' <param name="e">
-    ''' The <see cref="WebBrowserNavigatedEventArgs"/> instance containing the event data.
-    ''' </param>
-    ''' ----------------------------------------------------------------------------------------------------
-    Private Sub WebBrowserFreeBrowsing_Navigated(sender As Object, e As WebBrowserNavigatedEventArgs) Handles WebBrowserFreeBrowsing.Navigated
-        Me.TextBoxFreeBrowsingUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
-        Me.SetNavigationButtonStates()
-    End Sub
-
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <summary>
-    ''' Handles the <see cref="WebBrowser.DocumentCompleted"/> event of the <see cref="Form1.WebBrowserFreeBrowsing"/> control.
-    ''' </summary>
-    ''' ----------------------------------------------------------------------------------------------------
-    ''' <param name="sender">
-    ''' The source of the event.
-    ''' </param>
-    ''' 
-    ''' <param name="e">
-    ''' The <see cref="WebBrowserDocumentCompletedEventArgs"/> instance containing the event data.
-    ''' </param>
-    ''' ----------------------------------------------------------------------------------------------------
-    Private Sub WebBrowserFreeBrowsing_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles WebBrowserFreeBrowsing.DocumentCompleted
-        Me.TextBoxFreeBrowsingUrl.Text = DirectCast(sender, WebBrowser).Url.ToString()
     End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
@@ -315,7 +376,8 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonFreeBrowsingHome_Click(sender As Object, e As EventArgs) Handles ButtonFreeBrowsingHome.Click
-        Me.WebBrowserFreeBrowsing.Navigate(Homepages.FreeBrowsing)
+        ' Me.WebBrowserFreeBrowsing.Navigate(Homepages.FreeBrowsing)
+        Me.ChromiumWebBrowserFreeBrowsing.LoadUrl(Homepages.FreeBrowsing.ToString())
     End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
@@ -332,7 +394,8 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonFreeBrowsingReload_Click(sender As Object, e As EventArgs) Handles ButtonFreeBrowsingReload.Click
-        Me.WebBrowserFreeBrowsing.Refresh(WebBrowserRefreshOption.Completely)
+        ' Me.WebBrowserFreeBrowsing.Refresh(WebBrowserRefreshOption.Completely)
+        Me.ChromiumWebBrowserFreeBrowsing.Reload(ignoreCache:=True)
     End Sub
 
     ''' ----------------------------------------------------------------------------------------------------
@@ -349,7 +412,10 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonFreeBrowsingPrevious_Click(sender As Object, e As EventArgs) Handles ButtonFreeBrowsingPrevious.Click
-        Me.WebBrowserFreeBrowsing.GoBack()
+        ' Me.WebBrowserFreeBrowsing.GoBack()
+        If Me.ChromiumWebBrowserFreeBrowsing.CanGoBack Then
+            Me.ChromiumWebBrowserFreeBrowsing.Back()
+        End If
         Me.SetNavigationButtonStates()
     End Sub
 
@@ -367,7 +433,10 @@ Friend NotInheritable Class Form1 : Inherits Form
     ''' </param>
     ''' ----------------------------------------------------------------------------------------------------
     Private Sub ButtonFreeBrowsingNext_Click(sender As Object, e As EventArgs) Handles ButtonFreeBrowsingNext.Click
-        Me.WebBrowserFreeBrowsing.GoForward()
+        ' Me.WebBrowserFreeBrowsing.GoForward()
+        If Me.ChromiumWebBrowserFreeBrowsing.CanGoForward Then
+            Me.ChromiumWebBrowserFreeBrowsing.Forward()
+        End If
         Me.SetNavigationButtonStates()
     End Sub
 
@@ -407,36 +476,28 @@ Friend NotInheritable Class Form1 : Inherits Form
     Private Sub SetNavigationButtonStates()
 
         ' Domain Search
-        Me.ButtonDomainSearchNext.Enabled = Me.WebBrowserDomainSearch.CanGoForward
-        Me.ButtonDomainSearchPrevious.Enabled = Me.WebBrowserDomainSearch.CanGoBack
+        'Me.ButtonDomainSearchNext.Enabled = Me.WebBrowserDomainSearch.CanGoForward
+        'Me.ButtonDomainSearchPrevious.Enabled = Me.WebBrowserDomainSearch.CanGoBack
+        Me.ButtonDomainSearchNext.Enabled = Me.ChromiumWebBrowserDomainSearch.CanGoForward
+        Me.ButtonDomainSearchPrevious.Enabled = Me.ChromiumWebBrowserDomainSearch.CanGoBack
 
-        If Me.ButtonDomainSearchNext.Enabled Then
-            Me.ButtonDomainSearchNext.BackgroundImage = My.Resources.forward
-        Else
-            Me.ButtonDomainSearchNext.BackgroundImage = My.Resources.forward_disabled
-        End If
+        Me.ButtonDomainSearchNext.BackgroundImage =
+            If(Me.ButtonDomainSearchNext.Enabled, My.Resources.forward, My.Resources.forward_disabled)
 
-        If Me.ButtonDomainSearchPrevious.Enabled Then
-            Me.ButtonDomainSearchPrevious.BackgroundImage = My.Resources.backward
-        Else
-            Me.ButtonDomainSearchPrevious.BackgroundImage = My.Resources.backward_disabled
-        End If
+        Me.ButtonDomainSearchPrevious.BackgroundImage =
+            If(Me.ButtonDomainSearchPrevious.Enabled, My.Resources.backward, My.Resources.backward_disabled)
 
         ' Free Browsing
-        Me.ButtonFreeBrowsingNext.Enabled = Me.WebBrowserFreeBrowsing.CanGoForward
-        Me.ButtonFreeBrowsingPrevious.Enabled = Me.WebBrowserFreeBrowsing.CanGoBack
+        'Me.ButtonFreeBrowsingNext.Enabled = Me.WebBrowserFreeBrowsing.CanGoForward
+        'Me.ButtonFreeBrowsingPrevious.Enabled = Me.WebBrowserFreeBrowsing.CanGoBack
+        Me.ButtonFreeBrowsingNext.Enabled = Me.ChromiumWebBrowserFreeBrowsing.CanGoForward
+        Me.ButtonFreeBrowsingPrevious.Enabled = Me.ChromiumWebBrowserFreeBrowsing.CanGoBack
 
-        If Me.ButtonFreeBrowsingNext.Enabled Then
-            Me.ButtonFreeBrowsingNext.BackgroundImage = My.Resources.forward
-        Else
-            Me.ButtonFreeBrowsingNext.BackgroundImage = My.Resources.forward_disabled
-        End If
+        Me.ButtonFreeBrowsingNext.BackgroundImage =
+            If(Me.ButtonFreeBrowsingNext.Enabled, My.Resources.forward, My.Resources.forward_disabled)
 
-        If Me.ButtonFreeBrowsingPrevious.Enabled Then
-            Me.ButtonFreeBrowsingPrevious.BackgroundImage = My.Resources.backward
-        Else
-            Me.ButtonFreeBrowsingPrevious.BackgroundImage = My.Resources.backward_disabled
-        End If
+        Me.ButtonFreeBrowsingPrevious.BackgroundImage =
+            If(Me.ButtonFreeBrowsingPrevious.Enabled, My.Resources.backward, My.Resources.backward_disabled)
 
     End Sub
 

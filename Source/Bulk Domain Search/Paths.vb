@@ -1,4 +1,5 @@
-﻿''' <summary>
+﻿
+''' <summary>
 ''' Provides the default directory and file paths for this application.
 ''' </summary>
 Friend Module Paths

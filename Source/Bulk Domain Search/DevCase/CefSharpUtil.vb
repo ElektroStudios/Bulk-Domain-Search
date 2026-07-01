@@ -68,7 +68,6 @@ Friend Module CefSharpUtil
                     .LogFile = Paths.CefSharpLogFilePath,
                     .LogSeverity = LogSeverity.Error,
                     .PersistSessionCookies = True,
-                    .PersistUserPreferences = True,
                     .WindowlessRenderingEnabled = False ', .BackgroundColor = &HFF1E1E1EUI
                 }
         End If

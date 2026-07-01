@@ -1,6 +1,8 @@
 ﻿#Region " Imports "
 
+Imports System
 Imports System.Diagnostics
+Imports System.Windows.Forms
 
 Imports CefSharp
 Imports CefSharp.WinForms
@@ -129,8 +131,11 @@ Friend NotInheritable Class Form1 : Inherits Form
     Private Sub ChromiumWebBrowserDomainSearch_LoadingStateChanged(sender As Object, e As LoadingStateChangedEventArgs) Handles ChromiumWebBrowserDomainSearch.LoadingStateChanged
         Me.Invoke(
             Sub()
-                Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, ChromiumWebBrowser).Address
-                Me.SetNavigationButtonStates()
+                Try
+                    Me.TextBoxDomainSearchUrl.Text = DirectCast(sender, ChromiumWebBrowser).Address
+                    Me.SetNavigationButtonStates()
+                Catch
+                End Try
             End Sub)
     End Sub
 

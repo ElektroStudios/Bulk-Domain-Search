@@ -19,7 +19,7 @@ winforms
   
   <h1>Bulk Domain Search</h1>
 
-### A desktop tool that hosts a web-browser to speed-up bulk domain search through https://www.name.com/ website.
+### A desktop tool that hosts a web-browser to speed-up bulk domain search<br>through https://www.name.com/ website.
 
 </div>
 

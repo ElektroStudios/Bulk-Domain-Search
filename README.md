@@ -1,4 +1,4 @@
-<!-- Common Project Tags:
+﻿<!-- Common Project Tags:
 desktop-app 
 desktop-application 
 dotnet 

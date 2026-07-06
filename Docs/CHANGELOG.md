@@ -1,4 +1,4 @@
-# Bulk Domain Search Change Log 📋
+﻿# Bulk Domain Search Change Log 📋
 
 ## v1.1 *(current)* 🆕
 #### 🛠️ Fixes:

@@ -39,11 +39,11 @@ winforms
     <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/releases/latest"><img src="https://img.shields.io/github/v/release/ElektroStudios/Bulk-Domain-Search" alt="Latest Release"></a>
     <a href="https://learn.microsoft.com/en-us/dotnet/visual-basic/"><img src="https://img.shields.io/badge/language-VB.NET-purple.svg?logo=visualbasic" alt="Language"></a>
     <a href="https://learn.microsoft.com/en-us/windows/apps/"><img src="https://img.shields.io/badge/platform-Windows-lightgray.svg" alt="Platform"></a>
-    <a href="License.md"><img src="https://img.shields.io/github/license/ElektroStudios/Bulk-Domain-Search" alt="License"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/ElektroStudios/Bulk-Domain-Search" alt="License"></a>
   <br>
-    <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/archive/refs/heads/main.zip"><img src="https://img.shields.io/github/repo-size/ElektroStudios/Bulk-Domain-Search" alt="Repo size"></a>
+    <a href="https://api.github.com/repos/ElektroStudios/Bulk-Domain-Search/zipball"><img src="https://img.shields.io/github/repo-size/ElektroStudios/Bulk-Domain-Search" alt="Repo size"></a>
     <a href="https://somsubhra.github.io/github-release-stats/?username=ElektroStudios&repository=Bulk-Domain-Search"><img src="https://img.shields.io/github/downloads/ElektroStudios/Bulk-Domain-Search/total.svg?label=total%20downloads" alt="Total Downloads"></a>
-    <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/commits/main"><img src="https://img.shields.io/github/last-commit/ElektroStudios/Bulk-Domain-Search" alt="Last commit"></a>
+    <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/commits"><img src="https://img.shields.io/github/last-commit/ElektroStudios/Bulk-Domain-Search" alt="Last commit"></a>
     <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/pulls"><img src="https://img.shields.io/github/issues-pr/ElektroStudios/Bulk-Domain-Search" alt="Pull Requests"></a>
     <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/issues?q=is%3Aissue+is%3Aopen"><img src="https://img.shields.io/github/issues/ElektroStudios/Bulk-Domain-Search?color=blue" alt="Open Issues"></a><a href="https://github.com/ElektroStudios/Bulk-Domain-Search/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed/ElektroStudios/Bulk-Domain-Search?label=&color=28a745" alt="Closed Issues"></a>
     <a href="https://github.com/ElektroStudios/Bulk-Domain-Search/pulse"><img src="https://img.shields.io/badge/maintained-yes-green.svg" alt="Maintenance"></a>
